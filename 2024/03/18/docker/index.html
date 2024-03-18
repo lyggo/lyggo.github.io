@@ -90,7 +90,8 @@
         <h2><span id="一-安装">一、安装</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker.service</span><br><span class="line"></span><br><span class="line">sudo usermod -aG docker <span class="variable">$USER</span></span><br><span class="line">newgrp docker</span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /etc/docker</span><br><span class="line">sudo <span class="built_in">tee</span> /etc/docker/daemon.json &lt;&lt;-<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span>: [<span class="string">&quot;https://xxxxx.mirror.aliyuncs.com&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
 
 
-<h2><span id="二-核心概念与基本使用">二、核心概念与基本使用</span></h2><p>镜像，是一个只读的文件和文件夹组合。它包含了容器运行时所需要的所有基础文件和配置信息，是容器启动的基础，镜像是 Docker 容器启动的先决条件。</p>
+<h2><span id="二-核心概念与基本使用">二、核心概念与基本使用</span></h2><p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F9d2a25b7-9cb8-4163-bf61-78328e8a2b48%2FUntitled.png?table=block&id=138379c6-4afb-4db9-9f3e-7232a657c9c9&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
+<p>镜像，是一个只读的文件和文件夹组合。它包含了容器运行时所需要的所有基础文件和配置信息，是容器启动的基础，镜像是 Docker 容器启动的先决条件。</p>
 <p>容器是镜像的运行实体。镜像是静态的只读文件，而容器带有运行时需要的可写文件层，并且容器中的进程属于运行状态。即容器运行着真正的应用进程。容器有初建、运行、停止、暂停和删除五种状态。与直接运行在主机不同，容器有自己独立的命名空间隔离和资源限制，在容器内部，无法看到主机上的进程、环境变量、网络等信息</p>
 <p>镜像仓库类似于代码仓库，用来存储和分发 Docker 镜像。镜像仓库分为公共镜像仓库和私有镜像仓库。</p>
 <h3><span id="1-发展史">1、发展史</span></h3><ul>
@@ -105,7 +106,7 @@
 <li>2014 Google 内部调度系统 Borg10年,开源k8s</li>
 <li>2015 OCI 开放容器标准制定</li>
 </ul>
-<h3><span id="2-架构图">2、架构图</span></h3><p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/73058926-894f-43a4-819b-0ce6d677c868/Untitled.png" alt="Untitled"></p>
+<h3><span id="2-架构图">2、架构图</span></h3><p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F73058926-894f-43a4-819b-0ce6d677c868%2FUntitled.png?table=block&id=08d69b35-f7f5-42c1-aea2-e992782f2cf9&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://grpc.io/">https://grpc.io</a></li>
 <li><code>runC</code>是 Docker 官方按照 OCI 容器运行时标准的一个实现。通俗地讲，runC 是一个用来运行容器的轻量级工具，是真正用来运行容器的。</li>
@@ -165,8 +166,7 @@
 <p>runc 是一个标准的 OCI 容器运行时的实现，它是一个命令行工具，可以直接用来创建和运行容器</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir runc</span><br><span class="line">mkdir rootfs &amp;&amp; docker <span class="keyword">export</span> $(docker create busybox) | tar -C rootfs -xvf -</span><br><span class="line">runc spec  <span class="comment">// 使用 runc spec 命令根据文件系统生成对应的 config.json 文件</span></span><br><span class="line"><span class="comment">// config.json 文件定义了 runc 启动容器时的一些配置，如根目录的路径，文件挂载路径等配置。</span></span><br><span class="line">sudo runc run busybox  </span><br><span class="line"></span><br><span class="line">root@k8s-<span class="attr">docker</span>:~# runc list</span><br><span class="line"><span class="variable constant_">ID</span>          <span class="variable constant_">PID</span>         <span class="variable constant_">STATUS</span>      <span class="variable constant_">BUNDLE</span>                      <span class="variable constant_">CREATED</span>                          <span class="variable constant_">OWNER</span></span><br><span class="line">busybox     <span class="number">23618</span>       running     /home/ubuntu/dkr_cf/demo5   <span class="number">2023</span>-<span class="number">11</span>-09<span class="attr">T23</span>:<span class="number">58</span>:<span class="number">39.</span>882122786Z   root</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/fb52c599-acab-45f7-b462-348ccbc04d81/Untitled.png" alt="Untitled"></p>
-<h3><span id="4-镜像">4、镜像</span></h3><p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/e381b8ad-7f0b-46b6-b2c8-ef39dadf3c15/Untitled.png" alt="Untitled"></p>
+<h3><span id="4-镜像">4、镜像</span></h3><p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2Fe381b8ad-7f0b-46b6-b2c8-ef39dadf3c15%2FUntitled.png?table=block&id=aa0ecd43-1b49-4232-960e-8ea1eeb7aad5&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p>1、dockerfile</p>
 <table>
 <thead>
@@ -233,11 +233,11 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker image prune -af 清除没有被容器使用的镜像文件</span><br><span class="line">docker system prune -f 清除多余的数据，包括停止的容器、多余的镜像、未被使用的volume等等</span><br><span class="line">docker history  查看镜像构建历史</span><br></pre></td></tr></table></figure>
 
 <h3><span id="5-容器">5、容器</span></h3><p>生命周期 ： created：初建状态、running：运行状态、stopped：停止状态、paused： 暂停状态、deleted：删除状态</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/840de8e9-d684-4183-bf5a-c9318a4d8ff3/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F840de8e9-d684-4183-bf5a-c9318a4d8ff3%2FUntitled.png?table=block&id=028039cc-14ae-426d-a41d-a450bced3ce6&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker exec  进入容器</span><br><span class="line">docker export  导出容器</span><br><span class="line">docker import 导入容器</span><br></pre></td></tr></table></figure>
 
 <p>容器是基于镜像创建的可运行实例，并且单独存在，一个镜像可以创建出多个容器。运行容器化环境时，实际上是在容器内部创建该文件系统的读写副本。 这将添加一个容器层，该层允许修改镜像的整个副本</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/427ef910-6c79-4abe-bbba-ac545b29a358/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F427ef910-6c79-4abe-bbba-ac545b29a358%2FUntitled.png?table=block&id=13238e3d-a92a-4995-83e1-e6aaeb155063&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <ul>
 <li><strong>LowerDir对应的是容器的只读镜像层；</strong></li>
 <li><strong>UpperDir为容器的可读写层；</strong></li>
@@ -354,7 +354,7 @@
 <p>2、Harbor</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/goharbor/harbor/releases/download/v2.9.1/harbor-offline-installer-v2.9.1.tgz</span><br><span class="line">tar zxvf harbor-offline-installer-v2.9.1.tgz -C /usr/local/</span><br><span class="line">cp harbor.yml.tmpl harbor.yml</span><br><span class="line">vim harbor.yml</span><br><span class="line">./prepare      #为 harbor 启动的容器生成一些必要的文件（环境）</span><br><span class="line">./install.sh   # 以 pull 镜像并启动容器</span><br></pre></td></tr></table></figure>
 
-<h3><span id="7-安全">7、安全</span></h3><p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/cdf3d292-d2b0-4e2b-89bb-601bd74171fd/Untitled.png" alt="Untitled"></p>
+<h3><span id="7-安全">7、安全</span></h3><p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2Fcdf3d292-d2b0-4e2b-89bb-601bd74171fd%2FUntitled.png?table=block&id=87b35b0f-ef24-4bbd-a011-6b2c514dc9a9&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p>虚拟机是通过管理系统(Hypervisor)模拟出 CPU、内存、网络等硬件，然后在这些模拟的硬件上创建客户内核和操作系统。这样做的好处就是虚拟机有自己的内核和操作系统，并且硬件都是通过虚拟机管理系统模拟出来的，用户程序无法直接使用到主机的操作系统和硬件资源，因此虚拟机也对隔离性和安全性有着更好的保证</p>
 <p>Docker 容器则是通过 Linux 内核的 Namespace 技术实现了文件系统、进程、设备以及网络的隔离，然后再通过 Cgroups 对 CPU、 内存等资源进行限制，最终实现了容器之间相互不受影响，由于容器的隔离性仅仅依靠内核来提供，因此容器的隔离性也远弱于虚拟机。</p>
 <p>1、安全问题</p>
@@ -407,13 +407,15 @@
 </li>
 <li><p>使用安全容器</p>
 <ul>
-<li>安全容器是相较于普通容器的，安全容器与普通容器的主要区别在于，安全容器中的每个容器都运行在一个单独的微型虚拟机中，拥有独立的操作系统和内核，并且有虚拟化层的安全隔离。</li>
-<li>Kata Containers  <a target="_blank" rel="noopener" href="https://github.com/kata-containers">https://github.com/kata-containers</a></li>
-<li>Kata Container 并不包含一个完整的操作系统，只有一个精简版的 Guest Kernel 运行着容器本身的应用，并且通过减少不必要的内存，尽量共享可以共享的内存来进一步减少内存的开销。另外，Kata Container 实现了 OCI 规范，可以直接使用 Docker 的镜像启动 Kata 容器，具有开销更小、秒级启动、安全隔离等许多优点。</li>
+<li><p>安全容器是相较于普通容器的，安全容器与普通容器的主要区别在于，安全容器中的每个容器都运行在一个单独的微型虚拟机中，拥有独立的操作系统和内核，并且有虚拟化层的安全隔离。</p>
+</li>
+<li><p>Kata Containers  <a target="_blank" rel="noopener" href="https://github.com/kata-containers">https://github.com/kata-containers</a></p>
+</li>
+<li><p>Kata Container 并不包含一个完整的操作系统，只有一个精简版的 Guest Kernel 运行着容器本身的应用，并且通过减少不必要的内存，尽量共享可以共享的内存来进一步减少内存的开销。另外，Kata Container 实现了 OCI 规范，可以直接使用 Docker 的镜像启动 Kata 容器，具有开销更小、秒级启动、安全隔离等许多优点。</p>
+</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/461ca3a1-ebaa-4897-a836-f1dfd3179ed3/Untitled.png" alt="Untitled"></p>
 <h3><span id="8-监控">8、监控</span></h3><p>Docker 容器的监控方案有很多，除了 Docker 自带的docker stats命令，还有很多开源的解决方案，例如 sysdig、cAdvisor、Prometheus 等，都是非常优秀的监控工具。</p>
 <p>1、docker stats</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker stats nginx</span><br><span class="line">CONTAINER ID   NAME       CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS</span><br><span class="line">616a64dc8cf0   registry   0.00%     5.379MiB / 3.851GiB   0.14%     1.95MB / 30.2kB   156kB / 1.99MB   12</span><br></pre></td></tr></table></figure>
@@ -431,7 +433,7 @@
 <p>内存监控数据来源</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run --name=nginx --cpus=1 -m=2g --name=nginx  -d nginx</span><br><span class="line">2e25dfed563f4d7dc6398580b9951ec2bc4ee6ef8b80b60882189d7350068070</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/ba193b38-2afd-4680-a69e-3d005975d97b/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2Fba193b38-2afd-4680-a69e-3d005975d97b%2FUntitled.png?table=block&id=34739ce9-58d2-47ef-ac9b-c951b61085ec&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p>网络的监控数据来源 ：&#x2F;proc&#x2F;{PID}&#x2F;net&#x2F;dev</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@k8s-docker:~$ docker inspect mynginx |grep  Pid</span><br><span class="line">            <span class="string">&quot;Pid&quot;</span>: 13400,</span><br><span class="line">            <span class="string">&quot;PidMode&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">            <span class="string">&quot;PidsLimit&quot;</span>: null,</span><br><span class="line">ubuntu@k8s-docker:~$ <span class="built_in">cat</span> /proc/13400/net/dev</span><br><span class="line">Inter-|   Receive                                                |  Transmit</span><br><span class="line"> face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed</span><br><span class="line">  eth0:    1006      13    0    0    0     0          0         0        0       0    0    0    0     0       0          0</span><br><span class="line"> tunl0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0</span><br><span class="line">    lo:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0</span><br></pre></td></tr></table></figure>
 
@@ -441,11 +443,11 @@
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker export <span class="variable">$(</span>docker create busybox) -o busybox.tar</span><br><span class="line">tar -xf busybox.tar</span><br><span class="line">sudo chroot <span class="variable">$PWD</span> /bin/sh</span><br></pre></td></tr></table></figure>
 
 <p>1、验证文件隔离：隔离</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/3dd7ba54-e10b-4a33-be85-af3c2fb6c8b6/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F3dd7ba54-e10b-4a33-be85-af3c2fb6c8b6%2FUntitled.png?table=block&id=b3a22312-d810-4142-b115-35eb5a2a10f8&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p>2、验证网络隔离：未隔离</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/913b7b5a-bde2-4cde-9925-e911f21fd253/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F913b7b5a-bde2-4cde-9925-e911f21fd253%2FUntitled.png?table=block&id=a12c0006-6ff4-40c9-a72f-7a099bb5c7cb&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p>3、验证进程隔离：未隔离&#x2F;</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/79b4c6b6-86fe-41f0-9e2b-0c06c8733906/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F79b4c6b6-86fe-41f0-9e2b-0c06c8733906%2FUntitled.png?table=block&id=fd273883-d0cb-4ede-b76b-7ab46f08cde2&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p>实现一个完整的容器，我们还需要 Linux 的其他三项技术： Namespace、Cgroups 和联合文件系统</p>
 <h3><span id="2-namespace">2、<strong>Namespace</strong></span></h3><p> Linux 内核的一项功能，该功能对内核资源进行隔离，使得容器中的进程都可以在单独的命名空间中运行，并且只可以访问当前容器命名空间的资源。Namespace 可以隔离进程 ID、主机名、用户 ID、文件名、网络访问和进程间通信等相关资源</p>
 <table>
@@ -559,7 +561,7 @@
 <p>memtester 已经成功申请到 500M 内存并且正常完成了内存测试</p>
 <p>删除文件就可以删除cgroups</p>
 <h3><span id="4-network">4、Network</span></h3><p>Libnetwork 在启动容器时为 Docker 容器提供网络接入功能的插件，保证 Docker 容器顺利接入网络，实现主机和容器网络的互通</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/4c826579-3347-4002-b702-582a40abeaaf/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F4c826579-3347-4002-b702-582a40abeaaf%2FUntitled.png?table=block&id=2848a3af-a24a-47b0-be41-001d521bc413&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <ul>
 <li>null 空网络模式：可以帮助我们构建一个没有网络接入的容器环境，以保障数据安全。</li>
 </ul>
@@ -568,7 +570,7 @@
 <ul>
 <li>bridge 桥接模式：可以打通容器与容器间网络通信的需求。</li>
 </ul>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2/86e4483d-5982-4b3d-8fe5-c09e32c9b914/Untitled.png" alt="Untitled"></p>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Ff5c1bb2a-a779-4db6-aaa4-f9bda82a92c2%2F86e4483d-5982-4b3d-8fe5-c09e32c9b914%2FUntitled.png?table=block&id=bc2a3e50-6c57-4577-aea7-3a1a79d0d5d5&spaceId=f5c1bb2a-a779-4db6-aaa4-f9bda82a92c2&width=2000&userId=d4a4e9f0-5e3e-4b4b-8d2d-f348bf31c465&cache=v2" alt="img"></p>
 <p> 1、Linux veth</p>
 <p>成对出现，Linux 中的虚拟设备接口，veth 可以用来连接虚拟网络设备，例如 veth 可以用来连通两个 Net Namespace，从而使得两个 Net Namespace 之间可以互相访问。</p>
 <p>2、Linux bridge</p>
