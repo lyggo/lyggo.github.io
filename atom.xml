@@ -30,34 +30,9 @@
   </entry>
   
   <entry>
-    <title>hexo-helper</title>
-    <link href="http://example.com/2024/03/18/hexo-helper/"/>
-    <id>http://example.com/2024/03/18/hexo-helper/</id>
-    <published>2024-03-18T09:37:36.000Z</published>
-    <updated>2024-03-18T12:16:34.029Z</updated>
-    
-    <content type="html"><![CDATA[<h3><span id="一-hexo-常用命令">一、hexo 常用命令</span></h3><p>1、初始化 Hexo 项目：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder</span><br></pre></td></tr></table></figure><p>2、安装依赖：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure><p>3、新建文章：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure><p>4、新建页面：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &lt;title&gt;</span><br></pre></td></tr></table></figure><p>5、生成静态文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure><p>6、启动本地服务器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure><p>7、启动本地服务器并监听文件变化：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server --watch</span><br></pre></td></tr></table></figure><p>8、清除缓存文件（清除生成的静态文件和缓存）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure><p>9、部署到远程服务器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>10、生成静态文件并部署到远程服务器：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate --deploy</span><br></pre></td></tr></table></figure><p>11、列出已安装的插件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo list</span><br></pre></td></tr></table></figure><p>12、安装 Hexo 插件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;plugin-name&gt; --save</span><br></pre></td></tr></table></figure><p>14、升级 Hexo：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update -g hexo</span><br></pre></td></tr></table></figure><p>15、查看帮助信息：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="built_in">help</span></span><br></pre></td></tr></table></figure><h3><span id="二-hexo标签语法">二、hexo标签语法</span></h3><p>1、引用外部资源： 使用 该标签可以引用位于 Hexo 项目内的静态资源，例如图片、样式表或脚本文件。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![图片描述](&#123;% asset_path path/to/image.jpg %&#125;)</span><br></pre></td></tr></table></figure><p>2、引用文章链接： 使用 该标签可以引用其他文章的链接。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[链接到文章标题](&#123;% post_link 文章标题 %&#125;)</span><br></pre></td></tr></table></figure><p>3、引用标签链接： 使用 该标签可以引用特定标签的链接。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[链接到标签页](&#123;% tag_link Hexo %&#125;)</span><br></pre></td></tr></table></figure><p>4、引用分类链接： 使用 该标签可以引用特定分类的链接。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[链接到分类页](&#123;% category_link Tech %&#125;)</span><br></pre></td></tr></table></figure><p>5、生成站点链接： 使用 该标签可以生成站点内的链接，路径可以是相对路径或者绝对路径。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[站点链接](&#123;% url /about/ %&#125;)</span><br></pre></td></tr></table></figure><p>6、引用静态文件： 使用 该标签可以引用位于 Hexo 项目内的静态文件，如 CSS、JavaScript 等。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% static_file path/to/style.css %&#125;</span><br></pre></td></tr></table></figure><h3><span id="三-第三方插件">三、第三方插件</span></h3><p>1、PlantUML： PlantUML 是一个基于文本的图形绘制工具，它可以将简单的文本描述转换为复杂的图形。你可以使用 Hexo 插件 hexo-tag-plantuml 来支持在 Markdown 中引入 PlantUML 图。</p><p>首先，安装插件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-tag-plantuml --save</span><br></pre></td></tr></table></figure><p>然后，在 Markdown 中使用 PlantUML 标签来描述图形：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% plantuml %&#125;</span><br><span class="line">@startuml</span><br><span class="line">Bob -&gt; Alice : hello</span><br><span class="line">@enduml</span><br><span class="line">&#123;% endplantuml %&#125;</span><br></pre></td></tr></table></figure><p>PlantUML 支持多种图形类型，如流程图、时序图、类图等。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3&gt;&lt;span id=&quot;一-hexo-常用命令&quot;&gt;一、hexo 常用命令&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;1、初始化 Hexo 项目：&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;s</summary>
-      
-    
-    
-    
-    <category term="工作" scheme="http://example.com/categories/%E5%B7%A5%E4%BD%9C/"/>
-    
-    
-    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
     <title>docker-helper</title>
-    <link href="http://example.com/2024/03/18/docker-helper/"/>
-    <id>http://example.com/2024/03/18/docker-helper/</id>
+    <link href="http://example.com/2024/03/18/docker/"/>
+    <id>http://example.com/2024/03/18/docker/</id>
     <published>2024-03-18T03:52:49.000Z</published>
     <updated>2024-07-09T15:41:54.109Z</updated>
     
